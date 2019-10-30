@@ -5,7 +5,7 @@ console.log(id)
 
 const db_path="mongodb://localhost:27017"
 
-MongoClient.connect(db_path,{useNewUrlParser:true},(err,client)=>{
+MongoClient.connect(db_path,{useUnifiedTopology:true},(err,client)=>{
     if(err)throw err
 
     const db=client.db("taskmanager")

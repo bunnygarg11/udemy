@@ -1,0 +1,24 @@
+{
+  "name": "udemy_pracice",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "mongodb": "^3.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bunnygarg11/udemy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bunnygarg11/udemy/issues"
+  },
+  "homepage": "https://github.com/bunnygarg11/udemy#readme",
+  "description": ""
+}

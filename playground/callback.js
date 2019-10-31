@@ -1,6 +1,7 @@
 const doWorkCallback=(callback)=>{
     setTimeout(()=>{
-        callback("this is my error!",undefined)
+        callback(undefined,45)
+        callback("this is my error!",45)
     },2000)
 }
 

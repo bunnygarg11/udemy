@@ -7,13 +7,19 @@ app.use(express.json())
 // console.log(typeof(express.json()))
 
 
-app.post("/users",(req,res)=>{
+app.post("/users",async(req,res)=>{
     const user=new User(req.body)
-    user.save().then(()=>{
+    // user.save().then(()=>{
+    //     res.send(user)
+    // }).catch((e)=>{
+    //     res.status(400).send(e)
+    // })
+    try{
+        await user.save()
         res.send(user)
-    }).catch((e)=>{
-        res.status(400).send(e)
-    })
+    }catch(e){
+        res.send(e)
+    }
     
 })
 app.get("/users",(req,res)=>{
@@ -25,7 +31,7 @@ app.get("/users",(req,res)=>{
 })
 
 app.get("/user/:id",(req,res)=>{
-    const _id=req.params._id
+    const _id=req.params.id
     User.findById(_id).then((user)=>{
         res.send(user)
     }).catch((e)=>{

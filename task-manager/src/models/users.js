@@ -1,12 +1,13 @@
 const mongoose=require("mongoose")
 const validator=require("validator")
+const bcrypt=require("bcryptjs")
 
 mongoose.connect("mongodb://localhost:27017/task-manager-api",{
     useUnifiedTopology:true,
     useNewUrlParser:true,
 useCreateIndex:true})
-
-const user=mongoose.model("user",{
+// const Schema=mongoose.Schema()
+const userSchema=new mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -48,5 +49,13 @@ const user=mongoose.model("user",{
     }
 }
 })
+userSchema.pre("save",async function(next){
+    comsole.log("before saving")
+    if(this.isModified("password")){
+        this.password= bcrypt.hash(this.password,8)
+    }
+    next()
+})
+const user=mongoose.model("user",userSchema)
 
 module.exports=user

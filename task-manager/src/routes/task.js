@@ -1,6 +1,6 @@
 const express=require("express")
 const Route=express.Router()
-const Task=require("./models/Task")
+const Task=require("../models/Task")
 
 Route.get("/tasks",(req,res)=>{
     Task.find({}).then((task)=>{

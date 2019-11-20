@@ -1,9 +1,21 @@
 const express=require("express")
 
 const Route=express.Router()
-const User=require("./models/users")
+const User=require("../models/users")
 
+Route.post("/users/login",async(req,res)=>{
+    console.log(req.body)
+    try{
+        const user=await User.findbyCredentials(req.body.email,req.body.password)
+        const token=await user.generateAuthtoken()
+        console.log(token)
+        res.send({user,token})
+    }catch(e){
+        res.status(400).send()
+    }
+})
 Route.post("/users",async(req,res)=>{
+    
     const user=new User(req.body)
     // user.save().then(()=>{
     //     res.send(user)

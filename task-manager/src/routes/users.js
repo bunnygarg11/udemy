@@ -2,14 +2,18 @@ const express=require("express")
 
 const Route=express.Router()
 const User=require("../models/users")
+const auth=require("../middlewares/auth")
 
-Route.post("/users/login",async(req,res)=>{
+
+
+Route.post("/users/login",auth,async(req,res)=>{
+    // req.header()
     console.log(req.body)
     try{
         const user=await User.findbyCredentials(req.body.email,req.body.password)
-        const token=await user.generateAuthtoken()
-        console.log(token)
-        res.send({user,token})
+        // const token=await user.generateAuthtoken()
+        // console.log(token)
+        res.send(user)
     }catch(e){
         res.status(400).send()
     }
@@ -23,8 +27,9 @@ Route.post("/users",async(req,res)=>{
     //     res.status(400).send(e)
     // })
     try{
+        const token=user.generateAuthtoken()
         await user.save()
-        res.send(user)
+        res.send({user,token})
     }catch(e){
         res.send(e)
     }

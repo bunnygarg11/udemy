@@ -61,7 +61,7 @@ userSchema.methods.generateAuthtoken=async function(){
     const user=this
     const token=jwt.sign({_id:user._id.toString()},"thisismongoose")
     user.tokens=user.tokens.concat({token})
-    await user.save()
+    // await user.save()
     return token
 }
 // userSchema.methods.generateAuthToken = async function () {

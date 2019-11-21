@@ -1,0 +1,20 @@
+{
+  "name": "udemy_practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "practice.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bunnygarg11/udemy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bunnygarg11/udemy/issues"
+  },
+  "homepage": "https://github.com/bunnygarg11/udemy#readme"
+}

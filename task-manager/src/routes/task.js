@@ -1,15 +1,16 @@
 const express=require("express")
 const Route=express.Router()
 const Task=require("../models/Task")
+const auth=require("../middlewares/auth")
 
-Route.get("/tasks",(req,res)=>{
+Route.get("/tasks",auth,(req,res)=>{
     Task.find({}).then((task)=>{
         res.send(task)
     }).catch((e)=>{
         res.send(e)
     })
 })
-Route.get("/tasks/:id",(req,res)=>{
+Route.get("/tasks/:id",auth,(req,res)=>{
     const _id=req.params.id
     Task.findById(_id).then((task)=>{
         res.send(task)
@@ -51,8 +52,11 @@ Route.delete("/tasks/:id",async (req,res)=>{
         res.status(500).send(e)
     }
 })
-Route.post("/tasks",(req,res)=>{
-    const task=new Task(req.body)
+Route.post("/tasks",auth,(req,res)=>{
+    const task=new Task({
+        ...req.body,
+        owner:req.user._id
+    })
     task.save().then(()=>{
         res.send(task)
     }).catch((e)=>{

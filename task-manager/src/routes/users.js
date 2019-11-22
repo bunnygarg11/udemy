@@ -8,7 +8,7 @@ const auth=require("../middlewares/auth")
 
 Route.post("/users/login",auth,async(req,res)=>{
     // req.header()
-    console.log(req)
+    // console.log(req.body)
     try{
         const user=await User.findbyCredentials(req.body.email,req.body.password)
         // const token=await user.generateAuthtoken()
@@ -27,13 +27,37 @@ Route.post("/users",async(req,res)=>{
     //     res.status(400).send(e)
     // })
     try{
-        const token=user.generateAuthtoken()
+        const token=await user.generateAuthtoken()
         await user.save()
         res.send({user,token})
     }catch(e){
         res.send(e)
     }
     
+})
+// Route.post("/users/logout",auth,async(req,res)=>{
+
+//    try{ 
+//        req.user.token=req.user.token.filter((token)=>{
+//             return token.token!==req.token
+//     })
+//     req.user.save()
+//     res.status(200).send("logout")}catch(e){
+//         res.status(400).send("unable to logout")
+//     }
+
+// })
+Route.post('/users/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+        await req.user.save()
+
+        res.send()
+    } catch (e) {
+        res.status(500).send()
+    }
 })
 Route.get("/users",(req,res)=>{
     User.find({}).then((user)=>{

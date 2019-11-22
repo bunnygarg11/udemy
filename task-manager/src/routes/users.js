@@ -8,7 +8,7 @@ const auth=require("../middlewares/auth")
 
 Route.post("/users/login",auth,async(req,res)=>{
     // req.header()
-    console.log(req.body)
+    console.log(req)
     try{
         const user=await User.findbyCredentials(req.body.email,req.body.password)
         // const token=await user.generateAuthtoken()

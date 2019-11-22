@@ -4,6 +4,7 @@ const routeuser=require("./routes/users")
 const routeTask=require("./routes/task")
 
 app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 
 app.use(routeuser)
 app.use(routeTask)

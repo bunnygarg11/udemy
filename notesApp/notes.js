@@ -42,35 +42,58 @@
 //     addNote: addNote
 // }
 
-const fs=require("fs")
-const getNotes=function(){
+const fs = require("fs")
+const getNotes = function () {
     return "Your Notes..."
 }
 
-const addNote=function(title,body){
-    let notes=loadNotes()
-    notes.push({
-        title,
-        body
-    })
-    saveNotes(notes)
+const addNote = function (title, body) {
+    let notes = loadNotes()
+    let duplicateNotes = notes.filter(e => e.title == title)
+    if (duplicateNotes.length == 0) {
+        notes.push({
+            title,
+            body
+        })
+        saveNotes(notes)
+        console.log("Note added");
+    }
+    else {
+        console.log("Note title already taken");
+
+    }
+
 }
 
-const loadNotes=function(){
+const loadNotes = function () {
     try {
-        let data=fs.readFileSync("notes.json")
-        data=data.toString()
+        let data = fs.readFileSync("notes.json")
+        data = data.toString()
         return JSON.parse(data)
     } catch (error) {
         return []
     }
 }
-const saveNotes=function(notes){
-    notes=JSON.stringify(notes)
-    fs.writeFileSync("notes.json",notes)
+const saveNotes = function (notes) {
+    notes = JSON.stringify(notes)
+    fs.writeFileSync("notes.json", notes)
+}
+const removeNotes = (title) => {
+    let notes = loadNotes()
+    let notesTokeep = notes.filter(e => e.title !== title)
+    if (notesTokeep.length == notes.length) {
+        console.log("no notes found...");
+
+    } else {
+        
+        saveNotes(notesTokeep)
+        console.log("notes removed")
+    }
+
 }
 
-module.exports={
+module.exports = {
     addNote,
-    getNotes
+    getNotes,
+    removeNotes
 }

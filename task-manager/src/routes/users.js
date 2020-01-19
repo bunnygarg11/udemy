@@ -1,4 +1,6 @@
 const express=require("express")
+const multer=require("multer")
+
 
 const Route=express.Router()
 const User=require("../models/users")
@@ -97,5 +99,30 @@ Route.delete("/users/:id",async (req,res)=>{
         res.status(500).send(e)
     }
 })
+
+// Route.post("/user/avatar",upload.single("avatar"),(req,res,next)=>{
+//     res.send()
+// })
+const upload = multer({
+    dest: 'avatars',
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error('Please upload an image'))
+        }
+
+        cb(undefined, true)
+    }
+})
+
+Route.post('/user/avatar', upload.single('avatar'), (req, res) => {
+    res.send()
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
+
+
 
 module.exports=Route

@@ -1,3 +1,5 @@
+node_modules/
+task-manager/src/node_modules/
 task-manager/src/node_modules/.bin/mime
 task-manager/src/node_modules/.bin/mime.cmd
 task-manager/src/node_modules/.bin/semver

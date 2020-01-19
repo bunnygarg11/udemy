@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/bunnygarg11/udemy/issues"
   },
-  "homepage": "https://github.com/bunnygarg11/udemy#readme"
+  "homepage": "https://github.com/bunnygarg11/udemy#readme",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "yargs": "^15.1.0"
+  }
 }
